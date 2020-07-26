@@ -1,10 +1,6 @@
 # arm-exoskeleton
 This repository holds the code, logs and other relevant materials for the LEGO arm-exoskeleton designed and developed by students at the Technical University of Denmark.
 
-## Coming soon
-* Step-by-step tutorial on setting up the exoskeleton is coming soon
-
-
 # Tutorial
 
 ## Setup
@@ -26,10 +22,22 @@ The system is powered by 8 AA batteries which are sitting in the battery rack pr
 <img src="https://github.com/barnabashomola/arm-exoskeleton/blob/master/pictures/control_unit_placement.jpg" alt="Control unit placement" width="300"/>
 <img src="https://github.com/barnabashomola/arm-exoskeleton/blob/master/pictures/exoskeleton.jpg" alt="Exoskeleton" width="300"/>
 
+### Exoskeleton hardware setup
+The recommended way of putting the exoskeleton on the arm is the following:
+1. Open the wrist lock the widest position and lock it. (To unlock the wrist lock move the black gears to the center of the circle. To lock it, move the black gears back to the linear gear, that way locking it in. See pictures)
+2. Bend the exoskeleton at the elbow joint so the upper-arm part is bended over the wrist part.
+3. Slowly move the hand through the wrist cuff.
+4. Unlock the wrist cuff, tighten it gently, but well to the user's wrist. The cuff should be located a bit above the wrist bones.
+5. Bend the upper-arm part on the user's arm. Make sure that the elbow joint gears are sitting right at the elbow and are aligned.
+6. Use the velcro straps to tighten the structure to the arm.
+
+
+
 ### MQTT Setup
 The exoskeleton uses the [MQTT protocol](http://mqtt.org/) to communicate with other systems. In order to use the exoskeleton you have to set up an MQTT broker (server) to which the exoskeleton and the other systems (e.g. Unity program) will connect.
 
 Many options are available to set up your own local MQTT broker. One of the most popular one is the [Mosquitto](https://mosquitto.org/) open source broker.
+
 
 ## Usage
 
