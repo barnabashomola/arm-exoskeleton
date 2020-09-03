@@ -43,7 +43,7 @@ Many options are available to set up your own local MQTT broker. One of the most
 ## Usage
 
 1. Boot up the Raspberry Pi
-2. SSH into the Pi (https://www.raspberrypi.org/documentation/remote-access/ssh/)
+2. SSH into the Pi (https://www.raspberrypi.org/documentation/remote-access/ssh/) (By default it's: ```ssh pi@dex.local```)
 3. Place the [exoskeleton python script](https://github.com/barnabashomola/arm-exoskeleton/blob/master/exoskeleton.py) to directory
 4. Open the ```exoskeleton.py``` script with your favourite text editor (VIM, nano...)
 5. Modify the IP address in line 14 to the IP address of the MQTT broker as the following: ```client.connect("<IP_ADDRESS_OF_MQTT_SERVER>")```. If you are running a local MQTT broker on your own computer then it will be your own IP. Save and close the file.
