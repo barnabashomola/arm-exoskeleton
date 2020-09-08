@@ -54,7 +54,7 @@ Many options are available to set up your own local MQTT broker. One of the most
 4. Open the ```exoskeleton.py``` script with your favourite text editor (VIM, nano...)
 5. Modify the IP address in line 14 to the IP address of the MQTT broker as the following: ```client.connect("<IP_ADDRESS_OF_MQTT_SERVER>")```. If you are running a local MQTT broker on your own computer then it will be your own IP. Save and close the file.
 6. Make sure that your MQTT broker is running.
-7. Start the program by typing ```py exoskeleotn.py```.
+7. Start the program by typing ```python exoskeleton.py```.
 8. The program will give you messages and once you've seen all these messages appear the program is up and running, connected to the MQTT broker.
 ```
 Setting up MQTT...
