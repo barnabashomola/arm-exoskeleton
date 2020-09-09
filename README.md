@@ -6,12 +6,18 @@ This repository holds the code, logs and other relevant materials for the LEGO a
 ## Setup
 
 ### Lego setup
-In order to set up the arm exokeleton you need to assemble the Lego hardware. The manual can be found as part of the [report](https://github.com/barnabashomola/arm-exoskeleton/blob/master/documents/Exoskeleton___Final_report.pdf). For additional information and the specific needed brick list please open the [model folder](https://github.com/barnabashomola/arm-exoskeleton/tree/master/lego_model). Here you can find 3D models of the exoskeleton which can be opened with the [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page) program.
+In order to set up the arm exokeleton you need to assemble the Lego hardware. The [manual](https://github.com/barnabashomola/arm-exoskeleton/blob/master/lego_model/LEGO%20Arm%20Exoskeleton%20Mk%201manual.pdf) can be found in the repo as a pdf document. 
+
+For additional information and the specific needed brick list please open the [model folder](https://github.com/barnabashomola/arm-exoskeleton/tree/master/lego_model). Here you can find 3D models of the exoskeleton which can be opened with the [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page) program.
+
+Furthermore there is an [XML file with the needed parts](https://github.com/barnabashomola/arm-exoskeleton/blob/master/lego_model/LEGO%20Arm%20Exoskeleton%20Mk1.xml). This XML contains **ALL** the needed LEGO parts (including EV3 Large Servo motors and the Mindstorms cables). This XML file can be imported into one of the known LEGO brick database websites ([Bricklink](https://www.bricklink.com/) or [BrickOwl](https://www.brickowl.com/)) as wanted set-list and therefore can be ordered.
 
 ### Raspberry Pi setup
 The exoskeleton is powered by a Raspberry Pi extended by a [BrickPi](https://www.dexterindustries.com/brickpi/) extension board which provides the interface to the Lego EV3 sensors. Follow the instructions on BrickPi's website to assemble the acryllic case. The case can be attached to the right side of the model at the upper-arm part. (NB: This orientation can be changed by restructuring the exoskeleton a little bit)
 
-For the software setup, also follow the corresponding [BrickPi documentation](https://www.dexterindustries.com/BrickPi/brickpi-tutorials-documentation/getting-started/pi-prep/)
+For the software setup, also follow the corresponding [BrickPi documentation](https://www.dexterindustries.com/BrickPi/brickpi-tutorials-documentation/getting-started/pi-prep/).
+
+In order to use the wireless communication feature of the exoskeleton, the Raspberry Pi needs to be connected to the same network as the MQTT broker. For connecting the Raspberry Pi to a wireless network please see [the official documentation](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md).
 
 The sensors need to be connected in the given order to the BrickPi:
 * The Large EV3 servo motor at the wrist: **Port B**
@@ -48,7 +54,7 @@ Many options are available to set up your own local MQTT broker. One of the most
 4. Open the ```exoskeleton.py``` script with your favourite text editor (VIM, nano...)
 5. Modify the IP address in line 14 to the IP address of the MQTT broker as the following: ```client.connect("<IP_ADDRESS_OF_MQTT_SERVER>")```. If you are running a local MQTT broker on your own computer then it will be your own IP. Save and close the file.
 6. Make sure that your MQTT broker is running.
-7. Start the program by typing ```py exoskeleotn.py```.
+7. Start the program by typing ```python exoskeleton.py```.
 8. The program will give you messages and once you've seen all these messages appear the program is up and running, connected to the MQTT broker.
 ```
 Setting up MQTT...
