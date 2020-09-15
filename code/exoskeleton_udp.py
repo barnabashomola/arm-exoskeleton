@@ -17,6 +17,9 @@ logging.basicConfig(filename='exoskeleton.log', filemode="w", format='%(message)
 logging.info("value_wrist,value_elbow,timestamp")
 print("Logging is set up!")
 
+BP = brickpi3.BrickPi3() # Create an instance of the BrickPi3 class. BP will be the BrickPi3 object.
+BP.set_led(0) # For succesfull setup indication, we turn off the LED and turn it on if it's succesfully set up
+
 print("Setting up UDP connection...")
 SERVER_IP = '192.168.0.69'
 SERVER_PORT = 5013
@@ -32,7 +35,7 @@ print("UDP connection set up")
 print("Sending test UDP message...")
 sock.sendto(str.encode("from pi"), (UDP_IP, UDP_PORT))
 
-BP = brickpi3.BrickPi3() # Create an instance of the BrickPi3 class. BP will be the BrickPi3 object.
+
 
 def executeNudging(direction: str):
     if direction == "up":
@@ -88,6 +91,7 @@ def main():
         except IOError as error:
             print(error)
 
+        BP.set_led(100) # Light up the LED to show the setup is successful
         print("Logging motor value and ready to take nudging messages through UDP...")
 
         while True:       
