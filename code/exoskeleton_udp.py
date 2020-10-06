@@ -24,18 +24,16 @@ print("Setting up UDP connection...")
 SERVER_IP = '192.168.0.69'
 SERVER_PORT = 5013
 
-UDP_IP = "192.168.0.4"
-UDP_PORT = 5011
+CLIENT_IP = "192.168.0.4"
+CLIENT_PORT = 5011
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 
-sock.bind((UDP_IP, UDP_PORT))
+sock.bind((CLIENT_IP, CLIENT_PORT))
 print("UDP connection set up")
 
 print("Sending test UDP message...")
-sock.sendto(str.encode("from pi"), (UDP_IP, UDP_PORT))
-
-
+sock.sendto(str.encode("from pi"), (SERVER_IP, SERVER_PORT))
 
 def executeNudging(direction: str):
     if direction == "up":
@@ -102,20 +100,23 @@ def main():
             value_elbow = (BP.get_motor_encoder(BP.PORT_A) + BP.get_motor_encoder(BP.PORT_C)) * -1 / 2
             value_elbow = str(value_elbow)
 
-            sock.sendto(str.encode(f"wrist,{value_wrist},{timeStamp}"), (UDP_IP, UDP_PORT))
+            udp_message = str.encode(f"{value_elbow},{value_wrist},{timeStamp}")
+            sock.sendto(udp_message, (SERVER_IP, SERVER_PORT))
+
             data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-            if (addr[0] == SERVER_IP):
+            if (addr[0] == SERVER_IP and data != b''):
                 messageCallback(data)
 
             logging.info(value_wrist + "," + value_elbow + "," + timeStamp)
 
-            # time.sleep(0.005) # Without sleep the system logs and sends data to the server ~820 times per second (820 Hz)
+            time.sleep(0.005) # Without sleep the system logs and sends data to the server ~820 times per second (820 Hz)
 
     except KeyboardInterrupt: # except the program gets interrupted by Ctrl+C on the keyboard.
             sock.close()
-            print('program stopped')
+            print('\nsocket closed')
             logging.info("program stopped")
             BP.reset_all()        # Unconfigure the sensors, disable the motors, and restore the LED to the control of the BrickPi3 firmware.
+            print('program stopped')
 
 if __name__ == "__main__":
     main()
