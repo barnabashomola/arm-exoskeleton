@@ -54,7 +54,7 @@ The recommended way of putting the exoskeleton on the arm is the following:
 
 1. Boot up the Raspberry Pi
 2. SSH into the Pi (https://www.raspberrypi.org/documentation/remote-access/ssh/) (By default it's: ```ssh pi@dex.local```)
-3. Place the [exoskeleton python script](https://github.com/barnabashomola/arm-exoskeleton/blob/master/exoskeleton_udp.py) to a directory (recommended: ```/home/pi/Scripts/```)
+3. Place the [exoskeleton python script](https://github.com/barnabashomola/arm-exoskeleton/blob/master/code/exoskeleton_udp.py) to a directory (recommended: ```/home/pi/Scripts/```)
 4. Open the ```exoskeleton_udp.py``` script with your favourite text editor (VIM, nano...)
 5. Modify the IP address in line 14 to the IP address of the MQTT broker as the following: ```client.connect("<IP_ADDRESS_OF_MQTT_SERVER>")```. If you are 
 6. Make sure that your Unity program is running.
@@ -76,8 +76,8 @@ If you wish to have the exoskeleton start automatically once it's powered up, pl
 2. SSH into the Pi (https://www.raspberrypi.org/documentation/remote-access/ssh/) (By default it's: ```ssh pi@dex.local```)
 3. Go to ```sudo raspi-config``` and set in the boot options to wait for network
 4. Open up the profile file ```sudo nano /etc/profile```
-5. At the end place the following: ```/usr/bin/python3 <PATH_TO_SCRIPT>``` (recommended path: /home/pi/Scripts/exoskeleton_udp.py) and save it
-6. On the next bootup of the Pi if there's network connection (which is required for the communication) the program will start automatically. Once the LED on the BrickPi cease to blink and instead just brightly light, the system is up and running and connected to the UDP socket
+5. At the end place the following: ```/usr/bin/python3 <PATH_TO_SCRIPT>``` (recommended path: ```/home/pi/Scripts/exoskeleton_udp.py```) and save it
+6. On the next bootup of the Pi - if there's network connection (which is required for the communication) - the program will start automatically. Once the LED on the BrickPi cease to blink and instead just brightly light, the system is up and running and connected to the UDP socket
 
 ### Sending nudging messages
 In order to send nudging messages (for example from a Unity game) send UDP packets to the client (exoskeleton).
