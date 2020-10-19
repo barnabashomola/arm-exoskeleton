@@ -6,7 +6,6 @@ import paho.mqtt.client as mqtt
 import time     # import the time library for the sleep function
 import brickpi3 # import the BrickPi3 drivers
 from datetime import datetime
-# import asyncio
 import threading
 import logging
 import socket
@@ -21,16 +20,19 @@ BP = brickpi3.BrickPi3() # Create an instance of the BrickPi3 class. BP will be 
 BP.set_led(0) # For succesfull setup indication, we turn off the LED and turn it on if it's succesfully set up
 
 print("Setting up UDP connection...")
+
+# Unity program
 SERVER_IP = '192.168.0.69'
 SERVER_PORT = 5013
 
-CLIENT_IP = "192.168.0.4"
+# Exoskeleton
+CLIENT_IP = '192.168.0.4'
 CLIENT_PORT = 5011
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 
 sock.bind((CLIENT_IP, CLIENT_PORT))
-print("UDP connection set up")
+print("UDP connection set up!")
 
 print("Sending test UDP message...")
 sock.sendto(str.encode("from pi"), (SERVER_IP, SERVER_PORT))
@@ -63,7 +65,6 @@ def executeNudging(direction: str):
 
 def messageCallback(data):
     message = data.decode("utf-8")
-    print("Getting message: " + message)
 
     if message == 'time':
         date_str = str(message.payload.decode("utf-8"))
@@ -75,6 +76,12 @@ def messageCallback(data):
     if message == 'left' or message == 'right' or message == 'up' or message == 'down': 
         actuateThread = threading.Thread(target=executeNudging, args=(message,))
         actuateThread.start()
+
+def receiveMsg():
+    while True:
+        data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
+        if (addr[0] == SERVER_IP):
+            messageCallback(data)
 
 def main():
     try:
@@ -89,9 +96,14 @@ def main():
         except IOError as error:
             print(error)
 
+        # Starting a thread which is listening to the UDP messages until the program is closed
+        receiveMsgThread = threading.Thread(target=receiveMsg, args=())
+        receiveMsgThread.daemon = True # Making the Thread daemon so it stops when the main program has quit
+        receiveMsgThread.start()
+
         BP.set_led(100) # Light up the LED to show the setup is successful
         print("Logging motor value and ready to take nudging messages through UDP...")
-
+    
         while True:       
             timeStamp = datetime.now().strftime('%H:%M:%S.%f')
             
@@ -102,21 +114,18 @@ def main():
 
             udp_message = str.encode(f"{value_elbow},{value_wrist},{timeStamp}")
             sock.sendto(udp_message, (SERVER_IP, SERVER_PORT))
-
-            data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-            if (addr[0] == SERVER_IP and data != b''):
-                messageCallback(data)
+        
 
             logging.info(value_wrist + "," + value_elbow + "," + timeStamp)
 
-            time.sleep(0.005) # Without sleep the system logs and sends data to the server ~820 times per second (820 Hz)
+            time.sleep(0.01) # Without sleep the system logs and sends data to the server ~820 times per second (820 Hz)
 
     except KeyboardInterrupt: # except the program gets interrupted by Ctrl+C on the keyboard.
-            sock.close()
-            print('\nsocket closed')
-            logging.info("program stopped")
-            BP.reset_all()        # Unconfigure the sensors, disable the motors, and restore the LED to the control of the BrickPi3 firmware.
-            print('program stopped')
+        sock.close()
+        print('\nsocket closed')
+        BP.reset_all()        # Unconfigure the sensors, disable the motors, and restore the LED to the control of the BrickPi3 firmware.
+        logging.info("program stopped")
+        print('program stopped')
 
 if __name__ == "__main__":
     main()
