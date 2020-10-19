@@ -55,9 +55,21 @@ The recommended way of putting the exoskeleton on the arm is the following:
 1. Boot up the Raspberry Pi
 2. SSH into the Pi (https://www.raspberrypi.org/documentation/remote-access/ssh/) (By default it's: ```ssh pi@dex.local```)
 3. Place the [exoskeleton python script](https://github.com/barnabashomola/arm-exoskeleton/blob/master/code/exoskeleton_udp.py) to a directory (recommended: ```/home/pi/Scripts/```)
-4. Open the ```exoskeleton_udp.py``` script with your favourite text editor (VIM, nano...)
-5. Modify the IP address in line 14 to the IP address of the MQTT broker as the following: ```client.connect("<IP_ADDRESS_OF_MQTT_SERVER>")```. If you are 
-6. Make sure that your Unity program is running.
+4. Make sure that the IP addresses and ports are set up well! If you need to change them you can do so in the python script:
+
+Open the ```exoskeleton_udp.py``` script with your favourite text editor (VIM, nano...)
+
+Change the following lines:
+```
+# Unity program
+SERVER_IP = '192.168.0.69'
+SERVER_PORT = 5013
+
+# Exoskeleton
+CLIENT_IP = '192.168.0.4'
+CLIENT_PORT = 5011
+```
+6. Make sure that your Unity program is running!
 7. Go to the folder where the program is placed and start the script by typing ```python3 exoskeleton_udp.py```.
 8. The program will give you messages and once all these messages have appeared the program is up and running, connected to the UDP socket.
 ```
