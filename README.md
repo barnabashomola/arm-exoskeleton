@@ -12,6 +12,9 @@ For additional information and the specific needed brick list please open the [m
 
 Furthermore there is an [XML file with the needed parts](https://github.com/barnabashomola/arm-exoskeleton/blob/master/lego_model/LEGO%20Arm%20Exoskeleton%20Mk1.xml). This XML contains **ALL** the needed LEGO parts (including EV3 Large Servo motors and the Mindstorms cables). This XML file can be imported into one of the known LEGO brick database websites ([Bricklink](https://www.bricklink.com/) or [BrickOwl](https://www.brickowl.com/)) as wanted set-list and therefore can be ordered.
 
+### Powering up
+To power up the system it needs a 9-12V battery. BrickPi's solution is having 8 AA batteries which are sitting in a battery rack. However the motors are draining the battery quite fast, so a more robust solution fits better. **We recommend this [XTPower powerbank](https://www.xtpower.de/XT-16000QC3-PowerBank-modern-DC-/-USB-battery-with-15600mAh-up-to-24V) which has DC output out of the box and can provide 12V output which allows the motors to function fast and strong enough.**
+
 ### Raspberry Pi setup
 The exoskeleton is powered by a Raspberry Pi extended by a [BrickPi](https://www.dexterindustries.com/brickpi/) extension board which provides the interface to the Lego EV3 sensors. Follow the instructions on BrickPi's website to assemble the acryllic case. The case can be attached to the right side of the model at the upper-arm part. (NB: This orientation can be changed by restructuring the exoskeleton a little bit)
 
