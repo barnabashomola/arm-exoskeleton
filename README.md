@@ -8,9 +8,9 @@ This repository holds the code, logs and other relevant materials for the LEGO a
 ### Lego setup
 In order to set up the arm exokeleton you need to assemble the Lego hardware. The [manual](https://github.com/barnabashomola/arm-exoskeleton/blob/master/lego_model/LEGO%20Arm%20Exoskeleton%20Mk%201manual.pdf) can be found in the repo as a pdf document. 
 
-For additional information and the specific needed brick list please open the [model folder](https://github.com/barnabashomola/arm-exoskeleton/tree/master/lego_model). Here you can find 3D models of the exoskeleton which can be opened with the [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page) program.
+For additional information and the specific needed brick list please open the [model folder](https://github.com/barnabashomola/arm-exoskeleton/tree/master/lego_model). Here you can find 3D models of the exoskeleton which can be opened and edited with the [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page) program.
 
-Furthermore there is an [XML file with the needed parts](https://github.com/barnabashomola/arm-exoskeleton/blob/master/lego_model/LEGO%20Arm%20Exoskeleton%20Mk1.xml). This XML contains **ALL** the needed LEGO parts (including EV3 Large Servo motors and the Mindstorms cables). This XML file can be imported into one of the known LEGO brick database websites ([Bricklink](https://www.bricklink.com/) or [BrickOwl](https://www.brickowl.com/)) as wanted set-list and therefore can be ordered.
+Furthermore, there is an [XML file with the needed parts](https://github.com/barnabashomola/arm-exoskeleton/blob/master/lego_model/LEGO%20Arm%20Exoskeleton%20Mk1.xml). This XML contains **ALL** of the needed LEGO parts (including EV3 Large Servo motors and the Mindstorms cables). This XML file can be imported into one of the known LEGO brick database websites ([Bricklink](https://www.bricklink.com/) or [BrickOwl](https://www.brickowl.com/)) as wanted set-list and therefore can be ordered.
 
 ### Powering up
 To power up the system it needs a 9-12V battery. BrickPi's solution is having 8 AA batteries which are sitting in a battery rack. However the motors are draining the battery quite fast, so a more robust solution fits better. **We recommend this [XTPower powerbank](https://www.xtpower.de/XT-16000QC3-PowerBank-modern-DC-/-USB-battery-with-15600mAh-up-to-24V) which has DC output out of the box and can provide 12V output which allows the motors to function fast and strong enough.**
@@ -84,6 +84,11 @@ Sending test UDP message...
 Logging motor value and ready to take nudging messages through UDP...
 ```
 
+### Automatic connection to wireless network on Raspberry Pi
+It is required to have the Raspberry Pi to be connected to the same wireless network as the Unity program before it starts running the script and tries to connect to the UDP socket. In order to have the system automatically connect to the wireless network which the Unity program uses make the following changes:
+
+COMING SOON
+
 ### Automatic start of the script on Raspberry Pi
 If you wish to have the exoskeleton start automatically once it's powered up, please follow the steps below:
 
@@ -93,6 +98,8 @@ If you wish to have the exoskeleton start automatically once it's powered up, pl
 4. Open up the profile file ```sudo nano /etc/profile```
 5. At the end place the following: ```/usr/bin/python3 <PATH_TO_SCRIPT>``` (recommended path: ```/home/pi/Scripts/exoskeleton_udp.py```) and save it
 6. On the next bootup of the Pi - if there's network connection (which is required for the communication) - the program will start automatically. Once the LED on the BrickPi cease to blink and instead just brightly light, the system is up and running and connected to the UDP socket
+
+
 
 ### Sending nudging messages
 In order to send nudging messages (for example from a Unity game) send UDP packets to the client (exoskeleton).
